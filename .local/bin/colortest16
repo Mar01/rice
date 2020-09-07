@@ -1,0 +1,15 @@
+#!/bin/bash
+
+AR=(black darkred darkgreen darkyellow darkblue darkmagenta darkcyan \
+lightgrey darkgrey red green yellow blue magenta cyan white)
+
+for ((i=0,j=8;i<=7,j<=15;i++,j++))
+do	echo -e "($i) ${AR[i]}\t($j) ${AR[j]}"
+	tput setaf $i
+	echo -en "##########\t"
+	tput bold
+	if [ "$TERM" = "linux" ]
+	then	tput setaf $i
+	else	tput setaf $j ;fi
+	echo "##########"
+	tput sgr0 ;done

@@ -1,0 +1,49 @@
+! Black
+*.color0:	#000000
+! Dark Grey
+*.color8:	#545454
+
+! Dark Red
+*.color1:	#CC0000
+! Red
+*.color9:	#FF0000
+
+! Dark Green
+*.color2:	#00CC00
+! Green
+*.color10:	#00FF00
+
+! Dark Yellow
+*.color3:	#CCCC00
+! Yellow
+*.color11:	#FFFF00
+
+! Dark Blue
+*.color4:	#0070CC
+! Blue
+*.color12:	#0080FF
+
+! Dark Magenta
+*.color5:	#b16286
+! Magenta
+*.color13:	#d3869b
+
+! Dark Cyan
+*.color6:	#00CCCC
+! Cyan
+*.color14:	#00FFFF
+
+! Light Grey
+*.color7:	#A8A8A8
+! White
+*.color15:	#FFFFFF
+
+! Transparency (0-255):
+*.alpha: 192
+! Default Font
+*.font: hack:size=12:antialias=true:autohint=true;
+
+*background:	#000000
+*foreground:	#00FF00
+*cursorColor:	#FF0000
+*cursorColor2:	#00FF00

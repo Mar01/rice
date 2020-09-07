@@ -1,0 +1,129 @@
+# Mar
+# mar@mar0.cc (not yet active)
+# 2020
+
+# Git will save everything in this directory recursively by default
+# This file tells git what not to save (what to ignore)
+# The first line '/*' tells git to ignore everything in this directory
+# Each line beginning with '!' is an exception
+# Each exception is recursive unless the line starts with /
+# i.e.:
+#	/* = ignore all in this immediate directory
+#	!.config/ = except all in this directory recursively
+# To only allow specific directories:
+#	/* = ignore all in this immediate directory
+#	!.config/ = except all in this directory recursively
+#	.config/* = ignore all in this immediate directory
+#	!.config/i3/ = except all in this directory recursively
+#	!.config/neofetch/ = and all in this directory recursively
+# This will not work:
+#	/*
+#	!.config/i3/
+#	!.config/neofetch/
+#
+# If the first line was '*', git would ignore everything in this directory
+# recursively, so *each* directory *and* file would need to be specified as
+# an exception
+# i.e.:
+#	* = ignore all in this directory recursively
+#	!.config/ = except for just this directory
+#	!.config/i3/ = and just this directory
+#	!.config/i3/config = and just this file
+# This will not work:
+#	*
+#	!.config/i3/config
+#
+# .gitignore files can be used inside directories other than the root of the
+# repo. I use empty ones as placeholders to save directories to the repo because
+# git will only track files, not empty directories.
+
+/*
+
+!.gitignore
+!LICENSE
+!.profile
+!README.md
+!.ssh
+!.xinitrc
+!.xprofile
+!.zprofile
+
+!.config/
+.config/*
+!.config/aliasrc
+!.config/bashrc
+!.config/directories
+!.config/files
+!.config/inputrc
+!.config/Xresources*
+
+!.config/gnupg/
+.config/gnupg/*
+!.config/gnupg/gpg.conf
+!.config/gnupg/gpg-agent.conf
+
+!.config/lf/
+
+!.config/mpd/
+
+!.config/ncmpcpp
+.config/ncmpcpp/*
+!.config/ncmpcpp/bindings
+!.config/ncmpcpp/config
+
+!.config/nvim/
+.config/nvim/*
+!.config/nvim/init.vim
+!.config/nvim/colors/
+
+!.config/terminfo/
+
+!.config/tmux/
+
+!.config/wget/
+.config/wget/*
+!.config/wget/wgetrc
+
+!.config/zsh/
+.config/zsh/*
+!.config/zsh/.zshrc
+
+!.local/
+.local/*
+
+!.local/bin/
+
+!.local/cache/
+.local/cache/*
+
+!.local/cache/zsh/
+.local/cache/zsh/*
+!.local/cache/zsh/.gitignore
+
+!.local/share/
+.local/share/*
+
+!.local/share/bash
+.local/share/bash/*
+!.local/share/bash/.gitignore
+
+!.local/share/larbs/
+
+!.local/share/mpd/
+.local/share/mpd/*
+!.local/share/mpd/.gitignore
+
+!.local/.SEC/
+.local/.SEC/*
+
+!.local/.SEC/gnupg/
+.local/.SEC/gnupg/*
+!.local/.SEC/gnupg/gpg.conf
+!.local/.SEC/gnupg/gpg-agent.conf
+
+!.local/.SEC/ssh/
+.local/.SEC/ssh/*
+!.local/.SEC/ssh/.gitignore
+
+
+# vim: filetype=config

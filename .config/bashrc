@@ -1,0 +1,33 @@
+#!/bin/bash
+
+stty -ixon # Disable ctrl-s and ctrl-q.
+shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
+HISTSIZE=1000 # Command history
+HISTFILE="$HOME/.local/share/bash/bash_history"
+
+# The Linux TTY terminal uses the bold switch to go from colors 0-7 to 8-15,
+# X (graphical) terminals do not switch colors with the bold switch.
+# Colors 8-15 are typically brighter.
+if [ "$TERM" = "linux" ]
+then	CARY=({0..7})
+else	CARY=({8..15})
+fi
+
+TK="\[$(tput setaf ${CARY[0]})\]"	# Black/Darkgrey
+TR="\[$(tput setaf ${CARY[1]})\]"	# Red
+TG="\[$(tput setaf ${CARY[2]})\]"	# Green
+TY="\[$(tput setaf ${CARY[3]})\]"	# Yellow
+TB="\[$(tput setaf ${CARY[4]})\]"	# Blue
+TM="\[$(tput setaf ${CARY[5]})\]"	# Magenta
+TC="\[$(tput setaf ${CARY[6]})\]"	# Cyan
+TW="\[$(tput setaf ${CARY[7]})\]"	# Lightgrey/White
+TBD="\[$(tput bold)\]"			# Bold
+TRS="\[$(tput sgr0)\]"			# Reset
+
+export PS1=\
+"${TBD}${TR}┌─[${TG}\u${TC}@${TRS}${TW}\h${TBD}${TY}:${TB}\W${TR}]\n\
+└─${TC}\$${TRS}> "
+
+# Load directory/file shortcuts and command aliases
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+[ -f "$HOME/.local/share/bash/shortcuts" ] && source "$HOME/.local/share/bash/shortcuts"
