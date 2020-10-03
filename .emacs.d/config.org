@@ -7,8 +7,10 @@ Mar
 
 Currently based on a method described at https://assortedarray.com/posts/my-init-org-setup
 
-I don't know what the deal is but orb-babel-tangle doesn't work like described in the link,
-have to use (org-babel-load-file ~/.emacs.d/init.org) instead.
+I don't know what the deal is with his =org-babel-tangle-config+= function, it works but
+runs in an infinite loop even though there's something in it that's supposed to prevent
+that. I don't get it. I'm just using =org-babel-tangle= instead and i'm stuck with
+manually copying back [[* Custom Set Variables][custom variables]].
 
 I am noot using git hooks.
 
