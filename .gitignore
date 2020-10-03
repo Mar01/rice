@@ -88,6 +88,10 @@
 .config/zsh/*
 !.config/zsh/.zshrc
 
+!.emacs.d/
+.emacs.d/*
+!.emacs.d/config.org
+
 !.local/
 .local/*
 
