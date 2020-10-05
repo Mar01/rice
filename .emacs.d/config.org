@@ -1,5 +1,5 @@
 * Mar Emacs Config
-#+PROPERTY: header-args :tangle init.el
+#+PROPERTY: header-args :tangle init.el :comments link
 
 Mar
 
@@ -16,7 +16,7 @@ I am noot using git hooks.
 
 * Initialize Package System
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (require 'package)
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives
@@ -28,25 +28,40 @@ I am noot using git hooks.
 #+END_SRC
 
 * Packages
-
-#+BEGIN_SRC emacs-lisp
+** Which-Key
+   Makes a menu pop up from below that shows further possible key
+combinations.
+#+BEGIN_SRC elisp
   (use-package which-key
 	       :ensure t
-	       :init (which-key-mode))
-
+	       :config (which-key-mode 1))
+#+END_SRC
+** Smooth-Scrolling
+   Makes scrolling behave the way I want.
+#+BEGIN_SRC elisp
   (use-package smooth-scrolling
 	       :ensure t
-	       :init (smooth-scrolling-mode 1))
-
+	       :config (smooth-scrolling-mode 1))
 #+END_SRC
-
-* Aliased functions
-
-#+BEGIN_SRC emacs-lisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
+** Ido-Vertical
+   Modfies =ido= to use a vertical menu.
+#+BEGIN_SRC elisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :config
+    (ido-vertical-mode 1)
+    (setq-default ido-vertical-define-keys 'C-n-and-C-p-only))
 #+END_SRC
-
-* Functions
+** Smex
+   Replaces =execute-external-command= (default =M-x=) to something
+similar to ido-vertical. Bound to =M-x= in [[* Keybinds][Keybinds]].
+#+BEGIN_SRC elisp
+  (use-package smex
+    :ensure t
+    :config
+    (smex-initialize))
+#+END_SRC
+* Custom Functions
 ** Tangling My Config
 
    This is part of managing my config in a single .org file.
@@ -56,7 +71,10 @@ directly to init.el. This function copies those changes back
 to this file before overwriting init.el with the contents of
 this file.
 
-#+BEGIN_SRC emacs-lisp
+   Not current being used because infinite recursion happens
+despite the measure to prevent it.
+
+#+BEGIN_SRC elisp :tangle no
   (defun org-babel-tangle-config+ ()
     "Tangle emacs config file. Uses the following custom logic:
 
@@ -80,19 +98,50 @@ this file.
 
 ** My Test Function
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (defun my-test ()
     "test"
     (interactive)
     (message "wtfbbq"))
 #+END_SRC
 
-* Custom Set Variables
+* Config Core
+** Aliased functions
+#+BEGIN_SRC elisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** Visual Settings
+#+BEGIN_SRC elisp
+  (menu-bar-mode nil)
+  (tool-bar-mode nil)
+  (scroll-bar-mode nil)
+  (display-battery-mode t)
+  (setq-default display-line-numbers 'relative)
+#+END_SRC
+** IDO
+#+BEGIN_SRC elisp
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+#+END_SRC
+** Safe Local Variable Values
+   This is declares the file-local variables I set at the end of config.org
+to be safe to load without asking each time.
+#+BEGIN_SRC elisp
+  (setq safe-local-variable-values
+   '((eval add-hook 'after-save-hook
+	  (lambda nil
+	    (org-babel-tangle)
+	    (load-file "init.el"))
+	  nil t)))
+#+END_SRC
+** Custom Set Variables (old)
+   I'm keeping this thing around in case I figure out how to have it
+automatically copy back to here from =init.el=.
 :PROPERTIES:
 :ID: 1234
 :END:
-
-#+BEGIN_SRC emacs-lisp :comments link
+#+BEGIN_SRC elisp :comments link :tangle no
   (custom-set-variables
    ;; custom-set-variables was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
@@ -115,14 +164,21 @@ this file.
    ;; If there is more than one, they won't work right.
    )
 #+END_SRC
-
+* Keybinds
+  All keybinds will be found here, hopfully.
+** Smex
+   Replaces =execute-external-command= at =M-x=.
+#+BEGIN_SRC elisp
+  (use-package smex
+    :bind
+    ("M-x" . smex))
+#+END_SRC
 * Local Variables
 ** old
    I can't figure out the custom variables readback crap. It works but gets stuck in an infinte
 loop.
-;# eval: (add-hook 'after-save-hook (lambda ()(if (fboundp 'org-babel-tangle-config+) (org-babel-tangle-config+)(org-babel-tangle)))) nil t)
-
+ eval: (add-hook 'after-save-hook (lambda ()(if (fboundp 'org-babel-tangle-config+) (org-babel-tangle-config+)(org-babel-tangle)))) nil t)
 ** actual
-# Local Variables:
-# eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)(load-file "init.el")) nil t)
-# End:
+ Local Variables:
+ eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)(load-file "init.el")) nil t)
+ End:
