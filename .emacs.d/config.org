@@ -119,6 +119,8 @@ despite the measure to prevent it.
   (setq-default display-line-numbers 'relative)
 #+END_SRC
 ** IDO
+Replaces =find-file=, =switch-to-buffer=, and a couple others
+with its own functions automatically.
 #+BEGIN_SRC elisp
   (setq ido-create-new-buffer 'always)
   (setq ido-everywhere t)
@@ -172,6 +174,11 @@ automatically copy back to here from =init.el=.
   (use-package smex
     :bind
     ("M-x" . smex))
+#+END_SRC
+** Ibuffer
+Built-in function, replaces the default =list-buffers= at =C-x C-b=
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
 * Local Variables
 ** old
