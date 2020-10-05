@@ -61,6 +61,13 @@ similar to ido-vertical. Bound to =M-x= in [[* Keybinds][Keybinds]].
     :config
     (smex-initialize))
 #+END_SRC
+** Avy<<Avy>>
+Works kinda like qutebrowser's f button but for single characters
+in text.
+#+BEGIN_SRC elisp
+  (use-package avy
+    :ensure t)
+#+END_SRC
 * Custom Functions
 ** Tangling My Config
 
@@ -179,6 +186,13 @@ automatically copy back to here from =init.el=.
 Built-in function, replaces the default =list-buffers= at =C-x C-b=
 #+BEGIN_SRC elisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+** Avy
+[[Avy]] assigned here.
+#+BEGIN_SRC elisp
+  (use-package avy
+    :bind
+    ("M-s a" . avy-goto-char))
 #+END_SRC
 * Local Variables
 ** old
