@@ -29,22 +29,30 @@ I am not using git hooks.
 
 * Packages
 ** Which-Key
-   Makes a menu pop up from below that shows further possible key
+
+Makes a menu pop up from below that shows further possible key
 combinations.
+
 #+BEGIN_SRC elisp
   (use-package which-key
 	       :ensure t
 	       :config (which-key-mode 1))
 #+END_SRC
+
 ** Smooth-Scrolling
-   Makes scrolling behave the way I want.
+
+Makes scrolling behave the way I want.
+
 #+BEGIN_SRC elisp
   (use-package smooth-scrolling
 	       :ensure t
 	       :config (smooth-scrolling-mode 1))
 #+END_SRC
+
 ** Ido-Vertical
-   Modfies =ido= to use a vertical menu.
+
+Modfies =ido= to use a vertical menu.
+
 #+BEGIN_SRC elisp
   (use-package ido-vertical-mode
     :ensure t
@@ -52,33 +60,43 @@ combinations.
     (ido-vertical-mode 1)
     (setq-default ido-vertical-define-keys 'C-n-and-C-p-only))
 #+END_SRC
+
 ** Smex
-   Replaces =execute-external-command= (default =M-x=) to something
+
+Replaces =execute-external-command= (default =M-x=) to something
 similar to ido-vertical. Bound to =M-x= in [[* Keybinds][Keybinds]].
+
 #+BEGIN_SRC elisp
   (use-package smex
     :ensure t
     :config
     (smex-initialize))
 #+END_SRC
-** Avy<<Avy>>
+
+** Avy
+:PROPERTIES:
+:CUSTOM_ID: Avy
+:END:
+
 Works kinda like qutebrowser's f button but for single characters
 in text.
+
 #+BEGIN_SRC elisp
   (use-package avy
     :ensure t)
 #+END_SRC
+
 * Custom Functions
 ** Tangling My Config
 
-   This is part of managing my config in a single .org file.
+This is part of managing my config in a single .org file.
 Emacs has a funtion called =customize= that makes it easy to
 set [[* Custom Set Variables][Custom Set Variables]]. That function saves variables 
 directly to init.el. This function copies those changes back
 to this file before overwriting init.el with the contents of
 this file.
 
-   Not current being used because infinite recursion happens
+Not current being used because infinite recursion happens
 despite the measure to prevent it.
 
 #+BEGIN_SRC elisp :tangle no
@@ -114,10 +132,13 @@ despite the measure to prevent it.
 
 * Config Core
 ** Aliased functions
+
 #+BEGIN_SRC elisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
+
 ** Visual Settings
+
 #+BEGIN_SRC elisp
   (menu-bar-mode nil)
   (tool-bar-mode nil)
@@ -125,17 +146,25 @@ despite the measure to prevent it.
   (display-battery-mode t)
   (setq-default display-line-numbers 'relative)
 #+END_SRC
+
 ** IDO
+
+Built-in emacs mode.
+
 Replaces =find-file=, =switch-to-buffer=, and a couple others
 with its own functions automatically.
+
 #+BEGIN_SRC elisp
   (setq ido-create-new-buffer 'always)
   (setq ido-everywhere t)
   (ido-mode 1)
 #+END_SRC
+
 ** Safe Local Variable Values
-   This is declares the file-local variables I set at the end of config.org
+
+This declares the file-local variables I set at the end of config.org
 to be safe to load without asking each time.
+
 #+BEGIN_SRC elisp
   (setq safe-local-variable-values
    '((eval add-hook 'after-save-hook
@@ -144,12 +173,15 @@ to be safe to load without asking each time.
 	    (load-file "init.el"))
 	  nil t)))
 #+END_SRC
+
 ** Custom Set Variables (old)
-   I'm keeping this thing around in case I figure out how to have it
-automatically copy back to here from =init.el=.
 :PROPERTIES:
 :ID: 1234
 :END:
+
+I'm keeping this thing around in case I figure out how to have it
+automatically copy back to here from =init.el=.
+
 #+BEGIN_SRC elisp :comments link :tangle no
   (custom-set-variables
    ;; custom-set-variables was added by Custom.
@@ -173,32 +205,47 @@ automatically copy back to here from =init.el=.
    ;; If there is more than one, they won't work right.
    )
 #+END_SRC
+
 * Keybinds
-  All keybinds will be found here, hopfully.
+
+All keybinds will be found here, hopfully.
+
 ** Smex
-   Replaces =execute-external-command= at =M-x=.
+
+Replaces =execute-external-command= at =M-x=.
+
 #+BEGIN_SRC elisp
   (use-package smex
     :bind
     ("M-x" . smex))
 #+END_SRC
+
 ** Ibuffer
+
 Built-in function, replaces the default =list-buffers= at =C-x C-b=
+
 #+BEGIN_SRC elisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
+
 ** Avy
-[[Avy]] assigned here.
+
+[[#Avy][Avy]] assigned here.
+
 #+BEGIN_SRC elisp
   (use-package avy
     :bind
     ("M-s a" . avy-goto-char))
 #+END_SRC
+
 * Local Variables
 ** old
-   I can't figure out the custom variables readback crap. It works but gets stuck in an infinte
+
+I can't figure out the custom variables readback crap. It works but gets stuck in an infinte
 loop.
+
  eval: (add-hook 'after-save-hook (lambda ()(if (fboundp 'org-babel-tangle-config+) (org-babel-tangle-config+)(org-babel-tangle)))) nil t)
+
 ** actual
  Local Variables:
  eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)(load-file "init.el")) nil t)
