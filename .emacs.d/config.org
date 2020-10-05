@@ -12,7 +12,7 @@ runs in an infinite loop even though there's something in it that's supposed to 
 that. I don't get it. I'm just using =org-babel-tangle= instead and i'm stuck with
 manually copying back [[* Custom Set Variables][custom variables]].
 
-I am noot using git hooks.
+I am not using git hooks.
 
 * Initialize Package System
 
