@@ -62,9 +62,12 @@ Modfies =ido= to use a vertical menu.
 #+END_SRC
 
 ** Smex
+:PROPERTIES:
+:CUSTOM_ID: smex
+:END:
 
 Replaces =execute-external-command= (default =M-x=) to something
-similar to ido-vertical. Bound to =M-x= in [[* Keybinds][Keybinds]].
+similar to ido-vertical. Bound to =M-x= in [[#keybinds][Keybinds]].
 
 #+BEGIN_SRC elisp
   (use-package smex
@@ -75,7 +78,7 @@ similar to ido-vertical. Bound to =M-x= in [[* Keybinds][Keybinds]].
 
 ** Avy
 :PROPERTIES:
-:CUSTOM_ID: Avy
+:CUSTOM_ID: avy
 :END:
 
 Works kinda like qutebrowser's f button but for single characters
@@ -86,12 +89,31 @@ in text.
     :ensure t)
 #+END_SRC
 
+** Switch-window
+:PROPERTIES:
+:CUSTOM_ID: switch-window
+:END:
+
+Makes navigating windows kinda like [[#avy][Avy]].
+
+#+BEGIN_SRC elisp
+  (use-package switch-window
+    :ensure t
+    :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-qwerty-shortcuts
+	  '("a" "s" "d" "f" "g" "h" "j" "k" "l")))
+#+END_SRC
+
 * Custom Functions
 ** Tangling My Config
 
 This is part of managing my config in a single .org file.
 Emacs has a funtion called =customize= that makes it easy to
-set [[* Custom Set Variables][Custom Set Variables]]. That function saves variables 
+set [[#Custom Set Variables][Custom Set Variables]]. That function saves variables 
 directly to init.el. This function copies those changes back
 to this file before overwriting init.el with the contents of
 this file.
@@ -119,6 +141,34 @@ despite the measure to prevent it.
 	  ;; Avoid infinite recursion
 	  ((after-save-hook (remove 'org-babel-tangle-config+ after-save-hook)))
 	(org-babel-tangle-file (concat user-emacs-directory "config.org")))))
+#+END_SRC
+
+** Splitting windows
+:PROPERTIES:
+:CUSTOM_ID: splitting-windows
+:END:
+
+These make it so the new split window is selected immediately.
+
+#+BEGIN_SRC elisp
+  (defun mar-new-window-below ()
+    "Make new window below and select it immediately, keeping all
+  windows balanced.
+
+  Calls \"split-window-right\", \"balance-windows\", and \"other-window 1\"."
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+  (defun mar-new-window-right ()
+    "Make new window right and select it immediately, keeping all
+  windows balanced.
+
+  Calls \"split-window-right\", \"balance-windows\", and \"other-window 1\"."
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
 #+END_SRC
 
 ** My Test Function
@@ -176,6 +226,7 @@ to be safe to load without asking each time.
 
 ** Custom Set Variables (old)
 :PROPERTIES:
+:CUSTOM_ID: Custom Set Variables
 :ID: 1234
 :END:
 
@@ -207,12 +258,15 @@ automatically copy back to here from =init.el=.
 #+END_SRC
 
 * Keybinds
+:PROPERTIES:
+:CUSTOM_ID: keybinds
+:END:
 
 All keybinds will be found here, hopfully.
 
 ** Smex
 
-Replaces =execute-external-command= at =M-x=.
+[[#smex][Smex]] assigned here.
 
 #+BEGIN_SRC elisp
   (use-package smex
@@ -230,12 +284,31 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
 
 ** Avy
 
-[[#Avy][Avy]] assigned here.
+[[#avy][Avy]] assigned here.
 
 #+BEGIN_SRC elisp
   (use-package avy
     :bind
     ("M-s a" . avy-goto-char))
+#+END_SRC
+
+** Switch-window
+
+[[#switch-window][Switch-window]] bound here.
+
+#+BEGIN_SRC elisp
+  (use-package switch-window
+    :bind
+    ([remap other-window] . switch-window))
+#+END_SRC
+
+** Splitting windows
+
+[[#splitting-windows][Splitting windows]] stuff here.
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-x 2") 'mar-new-window-below)
+  (global-set-key (kbd "C-x 3") 'mar-new-window-right)
 #+END_SRC
 
 * Local Variables
