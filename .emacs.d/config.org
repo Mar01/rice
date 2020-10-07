@@ -264,6 +264,15 @@ automatically copy back to here from =init.el=.
 
 All keybinds will be found here, hopfully.
 
+Currently, two methods of assigning keys are used.
+
+=use-package= will ensure the package is available before 
+setting the key. It depends on =bind-key= which provids the 
+=describe-personal-keybindings= function which will list the
+keys set by =use-package=.
+
+=global-set-key= is built in to Emacs.
+
 ** Smex
 
 [[#smex][Smex]] assigned here.
