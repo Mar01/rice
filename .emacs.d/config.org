@@ -1,9 +1,8 @@
-* Mar Emacs Config
+#+TITLE: Memacs
+#+AUTHOR: Mar
 #+PROPERTY: header-args :tangle init.el :comments link
 
-Mar
-
-** Config Notes
+* Mar Emacs Config
 
 Currently based on a method described at https://assortedarray.com/posts/my-init-org-setup
 
@@ -108,6 +107,18 @@ Makes navigating windows kinda like [[#avy][Avy]].
 	  '("a" "s" "d" "f" "g" "h" "j" "k" "l")))
 #+END_SRC
 
+** Doom themes
+:PROPERTIES:
+:CUSTOM_ID: p-doom-themes
+:END:
+
+Doom themes.
+
+#+BEGIN_SRC elisp
+  (use-package doom-themes
+    :ensure t)
+#+END_SRC
+
 * Custom Functions
 ** Tangling My Config
 
@@ -171,6 +182,35 @@ These make it so the new split window is selected immediately.
     (other-window 1))
 #+END_SRC
 
+** Open Emacs Config
+:PROPERTIES:
+:CUSTOM_ID: f-open-emacs-config
+:END:
+
+Just a shorcut for editing emacs config.
+
+#+BEGIN_SRC elisp
+  (defun mar-open-emacs-config ()
+    "Shortcut to open emacs config"
+    (interactive)
+    (find-file (concat user-emacs-directory "config.org")))
+#+END_SRC
+
+** Kill whole word
+:PROPERTIES:
+:CUSTOM_ID: f-kill-whole-word
+:END:
+
+Eqivelant to vim c i w.
+
+#+BEGIN_SRC elisp
+  (defun mar-kill-whole-word ()
+    "Kills entire word at point, not just from point to end of word."
+    (interactive)
+    (backward-word)
+    (kill-word 1))
+#+END_SRC
+
 ** My Test Function
 
 #+BEGIN_SRC elisp
@@ -188,13 +228,31 @@ These make it so the new split window is selected immediately.
 #+END_SRC
 
 ** Visual Settings
+*** Toolbars and line numbers
 
 #+BEGIN_SRC elisp
-  (menu-bar-mode nil)
-  (tool-bar-mode nil)
-  (scroll-bar-mode nil)
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
   (display-battery-mode t)
   (setq-default display-line-numbers 'relative)
+#+END_SRC
+
+*** Cursor
+
+Cursor settings.
+
+#+BEGIN_SRC elisp
+  (setq blink-cursor-blinks 0)
+  (setq blink-cursor-interval 0.2)
+#+END_SRC
+
+*** Theme
+
+#+BEGIN_SRC elisp
+  (setq custom-safe-themes
+	'("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" default))
+  (load-theme 'doom-one)
 #+END_SRC
 
 ** IDO
@@ -255,6 +313,43 @@ automatically copy back to here from =init.el=.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    )
+#+END_SRC
+
+** Org stuff
+:PROPERTIES:
+:CUSTOM_ID: org-stuff
+:END:
+
+Stuff concerning Org mode here.
+
+*** Source editing
+:PROPERTIES:
+:CUSTOM_ID: source-editing
+:END:
+
+Edit source blocks in current window instead of splitting into new window.
+Not currently being used.
+
+#+BEGIN_SRC elisp :tangle no
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
+
+** Editing
+:PROPERTIES:
+:CUSTOM_ID: editing
+:END:
+
+Stuff related to how text is manipulated here.
+
+*** Electric
+:PROPERTIES:
+:CUSTOM_ID: electric-mode
+:END:
+
+Automatically enter closing brackets.
+
+#+BEGIN_SRC elisp
+  (electric-pair-mode t)
 #+END_SRC
 
 * Keybinds
@@ -320,10 +415,26 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
   (global-set-key (kbd "C-x 3") 'mar-new-window-right)
 #+END_SRC
 
+** Open Emacs Config
+
+[[#f-open-emacs-config][Open Emacs Config]] bound here.
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-c e") 'mar-open-emacs-config)
+#+END_SRC
+
+** Kill whole word
+
+[[#f-kill-whole-word][Kill whole word]] assigned here.
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-c w w") 'mar-kill-whole-word)
+#+END_SRC
+
 * Local Variables
 ** old
 
-I can't figure out the custom variables readback crap. It works but gets stuck in an infinte
+I can't figure out the custom variables readback crap. It works but gets stuck in an infinite
 loop.
 
  eval: (add-hook 'after-save-hook (lambda ()(if (fboundp 'org-babel-tangle-config+) (org-babel-tangle-config+)(org-babel-tangle)))) nil t)
