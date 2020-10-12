@@ -3,6 +3,9 @@
 #+PROPERTY: header-args :tangle init.el :comments link
 
 * Mar Emacs Config
+:PROPERTIES:
+:CUSTOM_ID: mar-emacs-config
+:END:
 
 Currently based on a method described at https://assortedarray.com/posts/my-init-org-setup
 
@@ -13,7 +16,55 @@ manually copying back [[* Custom Set Variables][custom variables]].
 
 I am not using git hooks.
 
+** Table Of Contents
+:PROPERTIES:
+:CUSTOM_ID: table-of-contents
+:END:
+
+- [[#mar-emacs-config][Mar Emacs Config]]
+  - [[#table-of-contents][Table Of Contents]]
+- [[#initialize-package-system][Initialize Package System]]
+- [[#packages][Packages]]
+  - [[#p-which-key][Which-Key]]
+  - [[#p-smooth-scrolling][Smooth-Scrolling]]
+  - [[#p-ido-vertical][Ido-Vertical]]
+  - [[#p-smex][Smex]]
+  - [[#p-avy][Avy]]
+  - [[#p-switch-window][Switch-window]]
+  - [[#p-doom-themes][Doom themes]]
+  - [[#p-org-superstar][Org-Superstar]]
+- [[#custom-functions][Custom Functions]]
+  - [[#tangling-my-config][Tangling My Config]]
+  - [[#f-splitting-windows][Splitting windows]]
+  - [[#f-open-emacs-config][Open Emacs Config]]
+  - [[#f-kill-whole-word][Kill whole word]]
+  - [[#f-my-test-function][My Test Function]]
+- [[#config-core][Config Core]]
+  - [[#aliased-funtions][Aliased functions]]
+  - [[#visual-settings][Visual Settings]]
+    - [[#toolb-n-linum][Toolbars and line numbers]]
+    - [[#cursor][Cursor]]
+    - [[#theme][Theme]]
+  - [[#ido][IDO]]
+  - [[#safe-local][Safe Local Variable Values]]
+  - [[#custom-set-variables][Custom Set Variables (old)]]
+  - [[#org-stuff][Org stuff]]
+    - [[#source-editing][Source editing]]
+  - [[#editing][Editing]]
+    - [[#electric-mode][Electric]]
+- [[#keybinds][Keybinds]]
+  - [[#k-smex][Smex]]
+  - [[#k-ibuffer][Ibuffer]]
+  - [[#k-avy][Avy]]
+  - [[#k-switch-window][Switch-window]]
+  - [[#k-splitting-windows][Splitting windows]]
+  - [[#k-open-emacs-config][Open Emacs Config]]
+  - [[#k-kill-whole-word][Kill whole word]]
+
 * Initialize Package System
+:PROPERTIES:
+:CUSTOM_ID: initialize-package-system
+:END:
 
 #+BEGIN_SRC elisp
   (require 'package)
@@ -27,7 +78,14 @@ I am not using git hooks.
 #+END_SRC
 
 * Packages
+:PROPERTIES:
+:CUSTOM_ID: packages
+:END:
+
 ** Which-Key
+:PROPERTIES:
+:CUSTOM_ID: p-which-key
+:END:
 
 Makes a menu pop up from below that shows further possible key
 combinations.
@@ -39,6 +97,9 @@ combinations.
 #+END_SRC
 
 ** Smooth-Scrolling
+:PROPERTIES:
+:CUSTOM_ID: p-smooth-scrolling
+:END:
 
 Makes scrolling behave the way I want.
 
@@ -49,6 +110,9 @@ Makes scrolling behave the way I want.
 #+END_SRC
 
 ** Ido-Vertical
+:PROPERTIES:
+:CUSTOM_ID: p-ido-vertical
+:END:
 
 Modfies =ido= to use a vertical menu.
 
@@ -62,7 +126,7 @@ Modfies =ido= to use a vertical menu.
 
 ** Smex
 :PROPERTIES:
-:CUSTOM_ID: smex
+:CUSTOM_ID: p-smex
 :END:
 
 Replaces =execute-external-command= (default =M-x=) to something
@@ -77,7 +141,7 @@ similar to ido-vertical. Bound to =M-x= in [[#keybinds][Keybinds]].
 
 ** Avy
 :PROPERTIES:
-:CUSTOM_ID: avy
+:CUSTOM_ID: p-avy
 :END:
 
 Works kinda like qutebrowser's f button but for single characters
@@ -90,10 +154,10 @@ in text.
 
 ** Switch-window
 :PROPERTIES:
-:CUSTOM_ID: switch-window
+:CUSTOM_ID: p-switch-window
 :END:
 
-Makes navigating windows kinda like [[#avy][Avy]].
+Makes navigating windows kinda like [[#p-avy][Avy]].
 
 #+BEGIN_SRC elisp
   (use-package switch-window
@@ -119,8 +183,29 @@ Doom themes.
     :ensure t)
 #+END_SRC
 
+** Org-Superstar
+:PROPERTIES:
+:CUSTOM_ID: p-org-superstar
+:END:
+
+Adds graphical elements to org markup.
+
+#+begin_src elisp
+  (use-package org-superstar
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda ()(org-superstar-mode 1))))
+#+end_src
+
 * Custom Functions
+:PROPERTIES:
+:CUSTOM_ID: custom-functions
+:END:
+
 ** Tangling My Config
+:PROPERTIES:
+:CUSTOM_ID: tangling-my-config
+:END:
 
 This is part of managing my config in a single .org file.
 Emacs has a funtion called =customize= that makes it easy to
@@ -156,7 +241,7 @@ despite the measure to prevent it.
 
 ** Splitting windows
 :PROPERTIES:
-:CUSTOM_ID: splitting-windows
+:CUSTOM_ID: f-splitting-windows
 :END:
 
 These make it so the new split window is selected immediately.
@@ -212,6 +297,9 @@ Eqivelant to vim c i w.
 #+END_SRC
 
 ** My Test Function
+:PROPERTIES:
+:CUSTOM_ID: f-my-test-function
+:END:
 
 #+BEGIN_SRC elisp
   (defun my-test ()
@@ -221,14 +309,28 @@ Eqivelant to vim c i w.
 #+END_SRC
 
 * Config Core
+:PROPERTIES:
+:CUSTOM_ID: config-core
+:END:
+
 ** Aliased functions
+:PROPERTIES:
+:CUSTOM_ID: aliased-funtions
+:END:
 
 #+BEGIN_SRC elisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 ** Visual Settings
+:PROPERTIES:
+:CUSTOM_ID: visual-settings
+:END:
+
 *** Toolbars and line numbers
+:PROPERTIES:
+:CUSTOM_ID: toolb-n-linum
+:END:
 
 #+BEGIN_SRC elisp
   (menu-bar-mode 0)
@@ -239,6 +341,9 @@ Eqivelant to vim c i w.
 #+END_SRC
 
 *** Cursor
+:PROPERTIES:
+:CUSTOM_ID: cursor
+:END:
 
 Cursor settings.
 
@@ -248,6 +353,9 @@ Cursor settings.
 #+END_SRC
 
 *** Theme
+:PROPERTIES:
+:CUSTOM_ID: theme
+:END:
 
 #+BEGIN_SRC elisp
   (setq custom-safe-themes
@@ -256,6 +364,9 @@ Cursor settings.
 #+END_SRC
 
 ** IDO
+:PROPERTIES:
+:CUSTOM_ID: ido
+:END:
 
 Built-in emacs mode.
 
@@ -269,6 +380,9 @@ with its own functions automatically.
 #+END_SRC
 
 ** Safe Local Variable Values
+:PROPERTIES:
+:CUSTOM_ID: safe-local
+:END:
 
 This declares the file-local variables I set at the end of config.org
 to be safe to load without asking each time.
@@ -284,7 +398,7 @@ to be safe to load without asking each time.
 
 ** Custom Set Variables (old)
 :PROPERTIES:
-:CUSTOM_ID: Custom Set Variables
+:CUSTOM_ID: custom-set-variables
 :ID: 1234
 :END:
 
@@ -369,8 +483,11 @@ keys set by =use-package=.
 =global-set-key= is built in to Emacs.
 
 ** Smex
+:PROPERTIES:
+:CUSTOM_ID: k-smex
+:END:
 
-[[#smex][Smex]] assigned here.
+[[#p-smex][Smex]] assigned here.
 
 #+BEGIN_SRC elisp
   (use-package smex
@@ -379,6 +496,9 @@ keys set by =use-package=.
 #+END_SRC
 
 ** Ibuffer
+:PROPERTIES:
+:CUSTOM_ID: k-ibuffer
+:END:
 
 Built-in function, replaces the default =list-buffers= at =C-x C-b=
 
@@ -387,8 +507,11 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
 #+END_SRC
 
 ** Avy
+:PROPERTIES:
+:CUSTOM_ID: k-avy
+:END:
 
-[[#avy][Avy]] assigned here.
+[[#p-avy][Avy]] assigned here.
 
 #+BEGIN_SRC elisp
   (use-package avy
@@ -397,8 +520,11 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
 #+END_SRC
 
 ** Switch-window
+:PROPERTIES:
+:CUSTOM_ID: k-switch-window
+:END:
 
-[[#switch-window][Switch-window]] bound here.
+[[#p-switch-window][Switch-window]] bound here.
 
 #+BEGIN_SRC elisp
   (use-package switch-window
@@ -407,8 +533,11 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
 #+END_SRC
 
 ** Splitting windows
+:PROPERTIES:
+:CUSTOM_ID: k-splitting-windows
+:END:
 
-[[#splitting-windows][Splitting windows]] stuff here.
+[[#f-splitting-windows][Splitting windows]] stuff here.
 
 #+BEGIN_SRC elisp
   (global-set-key (kbd "C-x 2") 'mar-new-window-below)
@@ -416,6 +545,9 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
 #+END_SRC
 
 ** Open Emacs Config
+:PROPERTIES:
+:CUSTOM_ID: k-open-emacs-config
+:END:
 
 [[#f-open-emacs-config][Open Emacs Config]] bound here.
 
@@ -424,6 +556,9 @@ Built-in function, replaces the default =list-buffers= at =C-x C-b=
 #+END_SRC
 
 ** Kill whole word
+:PROPERTIES:
+:CUSTOM_ID: k-kill-whole-word
+:END:
 
 [[#f-kill-whole-word][Kill whole word]] assigned here.
 
