@@ -80,6 +80,12 @@ bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 bindkey '^[[P' delete-char
 
+# set us up to use gpg keys for ssh.
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+# tell gpg-agent to stop spawning pinentry UNDER X
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line

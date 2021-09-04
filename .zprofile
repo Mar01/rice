@@ -27,9 +27,8 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # GPG
 export GNUPGHOME="$HOME/.local/.SEC/gnupg"
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
+# launch now so gpg-connect-agent doesn't whine that it's not running later
+gpgconf --launch gpg-agent
 
 # Other program settings:
 export LESS=-R
