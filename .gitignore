@@ -43,7 +43,6 @@
 !LICENSE
 !.profile
 !README.md
-!.ssh
 !.xinitrc
 !.xprofile
 !.zprofile
@@ -124,10 +123,6 @@
 .local/.SEC/gnupg/*
 !.local/.SEC/gnupg/gpg.conf
 !.local/.SEC/gnupg/gpg-agent.conf
-
-!.local/.SEC/ssh/
-.local/.SEC/ssh/*
-!.local/.SEC/ssh/.gitignore
 
 
 # vim: filetype=config
